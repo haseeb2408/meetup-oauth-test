@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meetup OAuth Callback</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .success { color: green; background: #f0f8f0; padding: 15px; border-radius: 5px; }
+        .error { color: red; background: #fff0f0; padding: 15px; border-radius: 5px; }
+        .code { background: #f5f5f5; padding: 10px; border-radius: 3px; word-break: break-all; }
+        .instructions { background: #f0f7ff; padding: 15px; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🎉 Meetup OAuth Callback</h1>
+    <p>This page handles the OAuth callback from Meetup.</p>
+    
+    <div id="result"></div>
+    
+    <div class="instructions">
+        <h3>📋 Next Steps:</h3>
+        <ol>
+            <li><strong>Copy the authorization code</strong> shown above</li>
+            <li><strong>Go back to your FastAPI app</strong> (http://localhost:8000)</li>
+            <li><strong>Use the code</strong> to exchange for an access token</li>
+            <li><strong>Start testing</strong> your Meetup API integration!</li>
+        </ol>
+    </div>
+    
+    <script>
+        // Extract authorization code from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const error = urlParams.get('error');
+        const errorDescription = urlParams.get('error_description');
+        
+        if (error) {
+            document.getElementById('result').innerHTML = `
+                <div class="error">
+                    <h2>❌ Authorization Error</h2>
+                    <p><strong>Error:</strong> ${error}</p>
+                    ${errorDescription ? `<p><strong>Description:</strong> ${errorDescription}</p>` : ''}
+                    <p>Please try the authorization process again.</p>
+                </div>
+            `;
+        } else if (code) {
+            document.getElementById('result').innerHTML = `
+                <div class="success">
+                    <h2>✅ Authorization Successful!</h2>
+                    <p><strong>Authorization Code:</strong></p>
+                    <div class="code">${code}</div>
+                    <p><small>This code expires in 10 minutes. Use it quickly to exchange for an access token.</small></p>
+                </div>
+            `;
+        } else {
+            document.getElementById('result').innerHTML = `
+                <div class="error">
+                    <h2>⚠️ No Authorization Code</h2>
+                    <p>No authorization code was received in the callback.</p>
+                    <p>Please check your OAuth configuration and try again.</p>
+                </div>
+            `;
+        }
+        
+        // Add timestamp
+        document.getElementById('result').innerHTML += `
+            <p><small>Callback received at: ${new Date().toLocaleString()}</small></p>
+        `;
+    </script>
+</body>
+</html>
