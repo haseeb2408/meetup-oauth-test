@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meetup API OAuth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        .highlight { background: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .urls { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        code { background: #f5f5f5; padding: 3px 6px; border-radius: 3px; }
+        .step { margin: 20px 0; padding: 15px; border-left: 4px solid #007bff; background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Meetup API OAuth Test Site</h1>
+    <p>This GitHub Pages site handles OAuth callbacks for Meetup API testing.</p>
+    
+    <div class="highlight">
+        <h2>📋 Use These URLs in Your Meetup OAuth Application:</h2>
+        <div class="urls">
+            <p><strong>Application Website:</strong><br>
+            <code id="website-url">Loading...</code></p>
+            
+            <p><strong>Redirect URI:</strong><br>
+            <code id="redirect-url">Loading...</code></p>
+        </div>
+    </div>
+    
+    <h2>🔄 OAuth Testing Process:</h2>
+    
+    <div class="step">
+        <h3>Step 1: Register with Meetup</h3>
+        <p>Use the URLs above in your <a href="https://secure.meetup.com/meetup_api/oauth_consumers/" target="_blank">Meetup OAuth application registration</a>.</p>
+    </div>
+    
+    <div class="step">
+        <h3>Step 2: Update Your FastAPI App</h3>
+        <p>Set your redirect URI to the one shown above in your FastAPI application code.</p>
+    </div>
+    
+    <div class="step">
+        <h3>Step 3: Test OAuth Flow</h3>
+        <p>Start your authorization process from your FastAPI app. You'll be redirected here after authorization.</p>
+    </div>
+    
+    <div class="step">
+        <h3>Step 4: Get Authorization Code</h3>
+        <p>After successful authorization, the <a href="auth/callback.html">callback page</a> will display your authorization code.</p>
+    </div>
+    
+    <h2>🔗 Quick Links:</h2>
+    <ul>
+        <li><a href="auth/callback.html">OAuth Callback Handler</a></li>
+        <li><a href="https://secure.meetup.com/meetup_api/oauth_consumers/" target="_blank">Meetup OAuth Registration</a></li>
+        <li><a href="https://www.meetup.com/api/guide/" target="_blank">Meetup API Documentation</a></li>
+    </ul>
+    
+    <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; color: #666;">
+        <p><small>Created for Meetup API testing • <a href="https://github.com/yourusername/meetup-oauth-test">View on GitHub</a></small></p>
+    </footer>
+    
+    <script>
+        // Set the URLs dynamically based on current domain
+        const baseUrl = window.location.origin + window.location.pathname.replace(/\/$/, '');
+        document.getElementById('website-url').textContent = baseUrl;
+        document.getElementById('redirect-url').textContent = baseUrl + '/auth/callback.html';
+        
+        // Update GitHub link
+        const repoUrl = baseUrl.replace('https://', 'https://github.com/').replace('.github.io/', '/');
+        document.querySelector('footer a').href = repoUrl;
+    </script>
+</body>
+</html>
